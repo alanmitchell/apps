@@ -8,7 +8,8 @@ Group=www-data
 WorkingDirectory=/home/apps/apps
 
 # Use --uds to specify the Unix socket path and set the desired number of workers.
-ExecStart=/home/apps/apps/.venv/bin/uvicorn main:app --uds /home/apps/apps/apps.sock --workers 2
+# Found that marimo did not work with more than one uvicorn worker
+ExecStart=/home/apps/apps/.venv/bin/uvicorn main:app --uds /home/apps/apps/apps.sock --workers 1
 
 # Automatically restart the service if it crashes.
 Restart=always
