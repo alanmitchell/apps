@@ -1,0 +1,17 @@
+[Unit]
+Description=Energy Apps and Calculators
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/apps/apps
+
+# Use --uds to specify the Unix socket path and set the desired number of workers.
+ExecStart=/home/apps/apps/.venv/bin/uvicorn main:app --uds /home/apps/apps/apps.sock --workers 2
+
+# Automatically restart the service if it crashes.
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
