@@ -1,14 +1,12 @@
-from typing import Callable, Coroutine
-from fastapi import FastAPI, Request, Response, Depends, HTTPException, status
-from fastapi.responses import RedirectResponse
+from fastapi import FastAPI, Request, HTTPException
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from fastapi.templating import Jinja2Templates
 from starlette.middleware.sessions import SessionMiddleware
-from pydantic import BaseModel
 import marimo
 import os
 import logging
 from dotenv import load_dotenv
-from fastapi import Form
 from app_info import app_info
 
 # Load environment variables
@@ -35,6 +33,9 @@ for filename in sorted(os.listdir(notebook_dir)):
 # Create a FastAPI app
 app = FastAPI()
 
+# Mount the static files directory
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
 # Set up Jinja2 templates
 templates = Jinja2Templates(directory=templates_dir)
 
@@ -43,6 +44,11 @@ async def home(request: Request):
     return templates.TemplateResponse(
         "home.html", {"request": request, "app_list": app_list}
     )
+
+# Define a route for the favicon
+@app.get("/favicon.ico", include_in_schema=False)
+async def favicon():
+    return FileResponse("static/favicon.ico")
 
 @app.exception_handler(HTTPException)
 async def http_exception_handler(request: Request, exc: HTTPException):
