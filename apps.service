@@ -3,7 +3,7 @@ Description=Energy Apps and Calculators
 After=network.target
 
 [Service]
-User=ubuntu
+User=apps
 Group=www-data
 WorkingDirectory=/home/apps/apps
 
