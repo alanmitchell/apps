@@ -2,15 +2,10 @@ from fastapi import FastAPI, Request, HTTPException
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from fastapi.templating import Jinja2Templates
-from starlette.middleware.sessions import SessionMiddleware
 import marimo
 import os
 import logging
-from dotenv import load_dotenv
 from app_info import app_info
-
-# Load environment variables
-load_dotenv()
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -60,11 +55,6 @@ async def http_exception_handler(request: Request, exc: HTTPException):
     )
 
 app.mount("/", server.build())
-
-# Add session middleware
-app.add_middleware(
-    SessionMiddleware, secret_key=os.getenv("SECRET_KEY", "your-secret-key")
-)
 
 # Run the server
 if __name__ == "__main__":
