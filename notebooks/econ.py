@@ -86,7 +86,10 @@ def _(
     """
     esc_label = make_label('Savings Escalation Rate', esc_info)
 
-    inputs_1 = mo.md(f"""Intial cost of the project: $ {init_cost}
+    inputs_1 = mo.md(f"""Description of the Analysis:  
+    {mo.ui.text_area(rows=2)}
+
+    Intial cost of the project: $ {init_cost}
 
     Expected life of the project in years: {life} {life.value} years
 
@@ -229,6 +232,17 @@ def _(ax, inputs_1, inputs_2, mo, res_text):
     results = mo.vstack([res_text, ax])
     all = mo.hstack([inputs, results], gap=3.0, widths='equal')
     all
+    return
+
+
+@app.cell
+def _(mo):
+    mo.md(
+        r"""
+        ---
+        If you have questions or comments, please send mail to alan@analysisnorth.com.
+        """
+    )
     return
 
 
