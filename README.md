@@ -1,2 +1,2 @@
 # apps
-General apps and calculators mostly related to energy.
+Applications and calculators mostly related to energy.
