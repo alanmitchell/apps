@@ -46,7 +46,7 @@ def _(mo):
 def _(mo):
     # Input Widgets
     init_cost = mo.ui.number(start=0, stop=None, step=1, value=1000)
-    life = mo.ui.slider(start=3, stop=50, value=20, debounce=True)
+    life = mo.ui.slider(start=3, stop=50, value=20, debounce=True, full_width=True)
     savings_yr_1 = mo.ui.number(step=1, value=100)
     savings_esc = mo.ui.slider(start=-1.0, stop=3.0, step=0.1, value=0.5, debounce=True)
     general_inflation = mo.ui.slider(start=1.0, stop=4.0, step=0.1, value=2.5, debounce=True)
@@ -86,14 +86,16 @@ def _(
     """
     esc_label = make_label('Savings Escalation Rate', esc_info)
 
+    life_control = mo.hstack([mo.md('Project&nbsp;Life:'),life , mo.md(f'{life.value}&nbsp;years')], widths=[0, 1, 0])
+
     inputs_1 = mo.md(f"""Description of the Analysis:  
     {mo.ui.text_area(rows=2)}
 
-    Intial cost of the project: $ {init_cost}
+    Intial Project Cost: $ {init_cost}
 
-    Expected life of the project in years: {life} {life.value} years
+    {life_control}
 
-    First Year Savings or Net Revenue of the Project: $ {savings_yr_1}
+    First Year Savings or Net Revenue: $ {savings_yr_1}
 
     {esc_label}: {savings_esc} {savings_esc_text}
     """)
@@ -241,6 +243,9 @@ def _(mo):
         r"""
         ---
         If you have questions or comments, please send mail to alan@analysisnorth.com.
+
+        This app was developed using the amazing [Marimo](https://marimo.io/) Python notebook tool. The notebook
+        source code is [available here](https://github.com/alanmitchell/apps/blob/main/notebooks/econ.py).
         """
     )
     return
